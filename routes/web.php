@@ -6,6 +6,7 @@ use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/BrandList', [BrandController::class, 'BrandList']);
@@ -18,3 +19,5 @@ Route::get('/ListProductByBrand/{id}', [ProductController::class,'ListProductByB
 Route::get('/ListProductBySlider', [ProductController::class,'ListProductBySlider']);
 Route::get('/ListProductBySlider', [ProductController::class,'ListProductBySlider']);
 Route::get('/ProductDetailsById/{id}', [ProductController::class,'ProductDetailsById']);
+
+Route::get('/SendOTP/{UserEmail}',[UserController::class,'SendOTP']);
