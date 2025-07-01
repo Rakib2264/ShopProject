@@ -11,7 +11,7 @@ class UserController extends Controller
 {
 public function SendOTP($UserEmail) {
     $OTP = rand(1000, 9999);
-    $details = ['code' => $OTP]; // ✅ এখানে 'code' ব্যবহার করছি
+    $details = ['code' => $OTP];
 
     Mail::to($UserEmail)->send(new OTPEmail($details));
     UserOTP::updateOrCreate(['email' => $UserEmail], ['otp' => $OTP]);
