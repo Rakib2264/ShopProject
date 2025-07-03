@@ -21,3 +21,4 @@ Route::get('/ListProductBySlider', [ProductController::class,'ListProductBySlide
 Route::get('/ProductDetailsById/{id}', [ProductController::class,'ProductDetailsById']);
 
 Route::get('/SendOTP/{UserEmail}',[UserController::class,'SendOTP']);
+Route::get('/SendOTPLATTER/{UserEmail}',[UserController::class,'SendOTPLATTER']);
