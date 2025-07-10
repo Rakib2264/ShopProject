@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseHelper;
 use App\Models\ProductReview;
+use App\Models\ProductWishes;
+use App\Models\ProductCart;
 
 class ProductController extends Controller
 {
@@ -51,5 +53,72 @@ class ProductController extends Controller
                 }
             ])->get(), 200);
         });
+    }
+
+    public function ProductWishList(Request $request){
+        $user_id = $request->header('id');
+        return ResponseHelper::Out('Success',ProductWishes::where('user_id', $user_id)->with('product')->get(), 200);
+    }
+
+    public function CreateWishList(Request $request, $product_id){
+        $user_id = $request->header('id');
+        $data = ProductWishes::updateOrCreate(
+            [ 'user_id' => $user_id, 'product_id' => $product_id],
+            [ 'user_id' => $user_id, 'product_id' => $product_id]
+        );
+
+        return ResponseHelper::Out('Success', $data, 200);
+    }
+
+
+    public function RemoveWishList(Request $request, $product_id){
+        $user_id = $request->header('id');
+        $data = ProductWishes::where('user_id', $user_id)->where('product_id', $product_id)->delete();
+        return ResponseHelper::Out('Success', $data, 200);
+    }
+
+    public function CreateCartList(Request $request, $product_id){
+        $user_id = $request->header('id');
+        $color = $request->input('color');
+        $size = $request->input('size');
+        $quantity = $request->input('quantity');
+        $UnitPrice = 0;
+
+        $productDetails = Product::where('id','=', $product_id)->first();
+
+        if($productDetails->discount == 1){
+            $UnitPrice = $productDetails->discount_price;
+        }else{
+            $UnitPrice = $productDetails->price;
+        }
+        $total = $UnitPrice * $quantity;
+
+        $data = ProductCart::updateOrCreate(
+            [ 'user_id' => $user_id, 'product_id' => $product_id],
+            [ 
+                'user_id' => $user_id, 
+                'product_id' => $product_id,
+                'color' => $color,
+                'size' => $size,
+                'quantity' => $quantity,
+                'price' => $total
+            ]
+        );
+
+        return ResponseHelper::Out('Success', $data, 200);
+
+        
+    }
+
+    public function ProductCartList(Request $request){
+        $user_id = $request->header('id');
+        $data = ProductCart::where('user_id', $user_id)->with('product')->get();
+        return ResponseHelper::Out('Success', $data, 200);
+    }
+
+    public function RemoveCartList(Request $request, $product_id){
+        $user_id = $request->header('id');
+        $data = ProductCart::where('user_id', $user_id)->where('product_id', $product_id)->delete();
+        return ResponseHelper::Out('Success', $data, 200);
     }
 }
