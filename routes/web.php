@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\TokenAuthenticate;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\HomeController;
 
 
 Route::get('/BrandList', [BrandController::class, 'BrandList']);
@@ -69,4 +70,8 @@ Route::get('/PaymentCreate/{id}', [PaymentController::class,'PaymentCreate']);
 Route::post('/PaymentSuccess', [PaymentController::class,'PaymentSuccess']);
 Route::post('/PaymentCancel', [PaymentController::class,'PaymentCancel']);
 Route::post('/PaymentFail', [PaymentController::class,'PaymentFail']);
+
+
+// Home Page
+Route::get('/',[HomeController::class,'HomePage']);
 
