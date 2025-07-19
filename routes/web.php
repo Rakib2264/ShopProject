@@ -22,7 +22,6 @@ Route::get('/ListProductByCategory/{id}', [ProductController::class,'ListProduct
 Route::get('/ListProductByRemark/{remark}', [ProductController::class,'ListProductByRemark']);
 Route::get('/ListProductByBrand/{id}', [ProductController::class,'ListProductByBrand']);
 Route::get('/ListProductBySlider', [ProductController::class,'ListProductBySlider']);
-Route::get('/ListProductBySlider', [ProductController::class,'ListProductBySlider']);
 Route::get('/ProductDetailsById/{id}', [ProductController::class,'ProductDetailsById']);
 Route::get('/ListReviewByProduct/{id}', [ProductController::class,'ListReviewByProduct']);
 
