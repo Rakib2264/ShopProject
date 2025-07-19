@@ -11,66 +11,64 @@
 		</div>
         <div class="row align-items-center">
             <div class="col-12">
-                <div class="cat_slider cat_style1 mt-4 mt-md-0 carousel_slider owl-carousel owl-theme nav_style5" data-loop="true" data-dots="false" data-nav="true" data-margin="30" data-responsive='{"0":{"items": "2"}, "480":{"items": "3"}, "576":{"items": "4"}, "768":{"items": "5"}, "991":{"items": "6"}, "1199":{"items": "7"}}'>
-                    <div class="item">
-                        <div class="categories_box">
-                            <a href="#">
-                                <img src="assets/images/cat_img1.png" alt="cat_img1"/>
-                                <span>Television</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="categories_box">
-                            <a href="#">
-                                <img src="assets/images/cat_img2.png" alt="cat_img2"/>
-                                <span>Mobile</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="categories_box">
-                            <a href="#">
-                                <img src="assets/images/cat_img3.png" alt="cat_img3"/>
-                                <span>Headphone</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="categories_box">
-                            <a href="#">
-                                <img src="assets/images/cat_img4.png" alt="cat_img4"/>
-                                <span>Watch</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="categories_box">
-                            <a href="#">
-                                <img src="assets/images/cat_img5.png" alt="cat_img5"/>
-                                <span>Game</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="categories_box">
-                            <a href="#">
-                                <img src="assets/images/cat_img6.png" alt="cat_img6"/>
-                                <span>Camera</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="categories_box">
-                            <a href="#">
-                                <img src="assets/images/cat_img7.png" alt="cat_img7"/>
-                                <span>Audio</span>
-                            </a>
-                        </div>
-                    </div>
+                <div id="topcategoryItem" class="cat_slider cat_style1 mt-4 mt-md-0 carousel_slider owl-carousel owl-theme nav_style5" data-loop="true" data-dots="false" data-nav="true" data-margin="30" data-responsive='{"0":{"items": "2"}, "480":{"items": "3"}, "576":{"items": "4"}, "768":{"items": "5"}, "991":{"items": "6"}, "1199":{"items": "7"}}'>
+                  
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- END SECTION CATEGORIES --> 
+
+<script>
+    TopCategory();
+
+    async function TopCategory() {
+        try {
+            let res = await axios.get('/CategoryList');
+            const $carousel = $('#topcategoryItem');
+
+            // Destroy previous carousel if exists
+            if ($carousel.hasClass("owl-loaded")) {
+                $carousel.trigger('destroy.owl.carousel');
+                $carousel.removeClass("owl-loaded");
+                $carousel.find(".owl-stage-outer").children().unwrap();
+            }
+
+            $carousel.empty();
+
+            res.data['data'].forEach((item) => {
+                let EachItem = `  
+                    <div class="item">
+                        <div class="categories_box text-center">
+                            <a href="#">
+                                <img style="width:100px; height:80px; object-fit:cover; margin:auto;" src="${item['categoryImg']}" alt="${item['categoryName']}"/>
+                                <span style="display:block; margin-top:10px; font-weight:500;">${item['categoryName']}</span>
+                            </a>
+                        </div>
+                    </div>`;
+                $carousel.append(EachItem);
+            });
+
+            // Re-initialize the carousel
+            $carousel.owlCarousel({
+                loop: true,
+                nav: true,
+                dots: false,
+                margin: 30,
+                responsive: {
+                    0: { items: 2 },
+                    480: { items: 3 },
+                    576: { items: 4 },
+                    768: { items: 5 },
+                    991: { items: 6 },
+                    1199: { items: 7 }
+                },
+                navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>']
+            });
+
+        } catch (error) {
+            console.error("Failed to load categories:", error);
+        }
+    }
+</script>

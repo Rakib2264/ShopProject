@@ -87,24 +87,9 @@
                             <div class="dropdown-menu">
                                 <ul class="mega-menu d-lg-flex">
                                     <li class="mega-menu-col col-lg-3">
-                                        <ul> 
-                                            <li class="dropdown-header">Woman's</li>
-                                            <li><a class="dropdown-item nav-link nav_item" href="shop-list-left-sidebar.html">Vestibulum sed</a></li>
-                                            <li><a class="dropdown-item nav-link nav_item" href="shop-left-sidebar.html">Donec porttitor</a></li>
-                                            <li><a class="dropdown-item nav-link nav_item" href="shop-right-sidebar.html">Donec vitae facilisis</a></li>
-                                            <li><a class="dropdown-item nav-link nav_item" href="shop-list.html">Curabitur tempus</a></li>
-                                            <li><a class="dropdown-item nav-link nav_item" href="shop-load-more.html">Vivamus in tortor</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="mega-menu-col col-lg-3">
-                                        <ul>
-                                            <li class="dropdown-header">Men's</li>
-                                            <li><a class="dropdown-item nav-link nav_item" href="shop-cart.html">Donec vitae ante ante</a></li>
-                                            <li><a class="dropdown-item nav-link nav_item" href="checkout.html">Etiam ac rutrum</a></li>
-                                            <li><a class="dropdown-item nav-link nav_item" href="wishlist.html">Quisque condimentum</a></li>
-                                            <li><a class="dropdown-item nav-link nav_item" href="compare.html">Curabitur laoreet</a></li>
-                                            <li><a class="dropdown-item nav-link nav_item" href="order-completed.html">Vivamus in tortor</a></li>
-                                        </ul>
+                                        <ul id="categoryItem"> 
+
+                                          </ul>
                                     </li>
                             </div>
                         </li>
@@ -123,8 +108,8 @@
                             </form>
                         </div><div class="search_overlay"></div>
                     </li>
-                                            <li>
-                            <a class="nav-link nav_item" href="#" data-bs-toggle="dropdown">Wish</a>
+                  <li>
+                       <a class="nav-link nav_item" href="#" data-bs-toggle="dropdown">Wish</a>
                         </li>
                     <li class="dropdown cart_dropdown"><a class="nav-link cart_trigger" href="#" data-bs-toggle="dropdown"><i class="linearicons-cart"></i><span class="cart_count">2</span></a>
                         <div class="cart_box dropdown-menu dropdown-menu-right">
@@ -152,3 +137,15 @@
     </div>
 </header>
 <!-- END HEADER -->
+<script>
+    Category();
+    async function Category() {
+        let res = await axios.get('/CategoryList');
+        $('#categoryItem').empty();
+
+        res.data['data'].forEach((item, i) => {
+            let EachItem = `<li><a class="dropdown-item nav-link nav_item" href="#">${item['categoryName']}</a></li>`;
+            $('#categoryItem').append(EachItem);
+        });
+    }
+</script>

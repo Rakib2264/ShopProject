@@ -44,6 +44,7 @@
 <!-- Slick CSS -->
 <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/slick-theme.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <!-- Style CSS -->
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -65,7 +66,7 @@
 @yield('content')
  
 <a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a> 
-
+ 
 <!-- Latest jQuery --> 
 <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
 
@@ -107,6 +108,8 @@
 
 <!-- Main Scripts JS --> 
 <script src="{{ asset('assets/js/scripts.js') }}"></script>
+
+
 
 </body>
 </html>
